@@ -1,1 +1,60 @@
-<p>sign-up works!</p>
+<app-form-layout
+  title="Bem-vindo(a)"
+  subtitle="Cadastre-se e acesse seus lançamentos financeiros"
+>
+  <img
+    src="assets/logo.jpeg"
+    width="140px"
+    height="140px"
+    alt="Logo DebtFlow"
+  />
+
+  <form [formGroup]="signUpForm" class="container-form">
+    <app-custom-input
+      label="E-mail"
+      placeholder="Digite seu email"
+      type="email"
+      name="email"
+      formControlName="email"
+      [errorMessage]="
+        signUpForm.get('email')?.invalid && (signUpForm.get('email')?.touched || signUpForm.get('email')?.dirty) ? 
+            signUpForm.get('email')?.hasError('required') ? 'Campo obrigatório' :
+            signUpForm.get('email')?.hasError('email') ? 'Deve ser um e-mail válido' : ''
+        : ''
+      "
+    />
+    <app-custom-input
+      formControlName="password"
+      name="password"
+      label="Nova senha"
+      placeholder="Digite sua senha"
+      type="password"
+      [errorMessage]="
+        signUpForm.get('password')?.invalid && (signUpForm.get('password')?.touched || signUpForm.get('password')?.dirty) ? 
+            signUpForm.get('password')?.hasError('required') ? 'Campo obrigatório' :
+            signUpForm.get('password')?.hasError('minlength') ? 'Deve ter no mínimo 6 caracteres' : ''
+        : ''
+      "
+    />
+
+    <app-custom-input
+      formControlName="confirmPassword"
+      name="confirmPassword"
+      label="Confirme sua senha"
+      placeholder="Confirmação de senha"
+      type="password"
+      [errorMessage]="
+        signUpForm.dirty && signUpForm.get('confirmPassword')?.value !== signUpForm.get('password')?.value  ? 'Senhas devem ser iguais' : ''
+      "
+      
+    />
+
+    <div class="container-button">
+      <app-custom-button [disable]="!signUpForm.valid" (click)="signUp()"
+      >Cadastrar</app-custom-button
+    >
+
+    <p class="text-redirect-signUp">Já tem uma conta? <a routerLink="/">Faça Login!</a></p>
+    </div>
+  </form>
+</app-form-layout>

@@ -1,7 +1,7 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-type InputTypes = 'text' | 'email' | 'password'
+type InputTypes = 'text' | 'email' | 'password';
 
 @Component({
   selector: 'app-custom-input',
@@ -15,7 +15,7 @@ type InputTypes = 'text' | 'email' | 'password'
     },
   ],
   templateUrl: './custom-input.component.html',
-  styleUrl: './custom-input.component.scss'
+  styleUrl: './custom-input.component.scss',
 })
 export class CustomInputComponent implements ControlValueAccessor {
   @Input() type: InputTypes = 'text';
@@ -25,27 +25,22 @@ export class CustomInputComponent implements ControlValueAccessor {
   @Input() name!: string;
 
   value: string = '';
-  onChange = (value: string) => {};
+  onTouched: any = () => {};
+  onChange: any = () => {};
 
-  onTouched = () => {};
-
-
-  writeValue(event: any): void {
-    this.value = event.target.value;
+  writeValue(value: any): void {
+    this.value = value;
   }
 
-  registerOnChange(onChange: any) {
-    this.onChange = onChange;
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
   }
 
-  registerOnTouched(onTouched: any) {
-    this.onTouched = onTouched;
-  } 
-
-  handleInput(event: Event) {
-    const input = event.target as HTMLInputElement;
-    this.value = input.value;
-    this.onChange(this.value);
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
   }
-  
+  handleValue(event: any) {
+    const { value } = event.target;
+    this.onChange(value);
+  }
 }

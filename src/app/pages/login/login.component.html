@@ -9,13 +9,16 @@
     alt="Logo DebtFlow"
   />
 
-  <form [formGroup]="loginForm">
+  <form [formGroup]="loginForm" class="container-form">
     <app-custom-input
       label="E-mail"
       placeholder="Digite seu email"
       type="email"
       name="email"
       formControlName="email"
+      [errorMessage]="
+        loginForm.get('email')?.invalid && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty) ? 'Campo obrigatório' : ''
+      "
     />
     <app-custom-input
       formControlName="password"
@@ -23,10 +26,17 @@
       placeholder="Digite sua senha"
       type="password"
       name="password"
+      [errorMessage]="
+        loginForm.get('password')?.invalid && (loginForm.get('password')?.touched || loginForm.get('password')?.dirty) ? 'Campo obrigatório' : ''
+      "
     />
 
-    <app-custom-button>Entrar</app-custom-button>
+    <div class="container-button">
+      <app-custom-button [disable]="!loginForm.valid" (click)="login()"
+      >Entrar</app-custom-button
+    >
 
-    <p>Não tem uma conta? <a routerLink="/sign-up">Cadastre-se</a></p>
+    <p class="text-redirect-signUp">Não tem uma conta? <a routerLink="/sign-up">Cadastre-se</a></p>
+    </div>
   </form>
 </app-form-layout>

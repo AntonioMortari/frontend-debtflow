@@ -1,0 +1,35 @@
+@import "../../../scss/variables";
+
+.container-form{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .container-button{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+    }
+}
+
+.text-redirect-signUp{
+    font-size: small;
+    text-align: center;
+
+    a{
+        color: $primary;
+        text-decoration: none;
+    }
+
+    a:hover{
+        text-decoration: underline;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .container-form{
+        width: 80%;
+    }
+  }

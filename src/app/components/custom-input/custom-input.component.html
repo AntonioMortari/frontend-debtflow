@@ -1,4 +1,15 @@
 <div class="container-input">
   <label [for]="name">{{ label }}</label>
-  <input class="custom-input" [type]="type" [placeholder]="placeholder" [name]="name" (input)="($event)"[value]='value' />
+  <input
+    class="custom-input"
+    [type]="type"
+    [placeholder]="placeholder"
+    [name]="name"
+    (input)="handleValue($event)"
+    [value]="value"
+  />
+
+  @if (errorMessage) {
+    <p class="error-input">{{errorMessage}}</p>
+  }
 </div>

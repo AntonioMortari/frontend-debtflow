@@ -18,3 +18,8 @@
 .custom-input:focus{
     border-color: $primary;
 }
+
+.error-input{
+    color: $error;
+    font-size: small;
+}
