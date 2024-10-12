@@ -1,0 +1,27 @@
+
+
+.container{
+    margin-top: 30px;
+    padding: 15px;
+}
+
+.container-titles{
+    margin-bottom: 15px;
+
+    h3{
+        font-weight:600;
+        font-size: x-large;
+    }
+
+    span{
+        display: block;
+        color: #5b5b5b;
+        margin-bottom: 10px;
+    }
+}
+
+.container-labels{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

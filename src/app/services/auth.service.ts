@@ -3,6 +3,11 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
+interface IAuthData{
+  userId: string;
+  token: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -21,6 +26,16 @@ export class AuthService {
     const url = this.baseUrl + '/users';
 
     return this.http.post(url, { email, password });
+  }
+
+  public getAuthData(): IAuthData | null{
+    const stringAuthData = localStorage.getItem('@auth');
+
+    if(!stringAuthData){
+      return null;
+    }
+
+    return JSON.parse(stringAuthData);
   }
 
   public logout() {
