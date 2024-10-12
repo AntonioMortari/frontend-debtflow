@@ -1,6 +1,11 @@
 @import "../../../scss/variables";
 
 .btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
     background-color: $primary;
     padding: .5rem;
     width: 100%;
