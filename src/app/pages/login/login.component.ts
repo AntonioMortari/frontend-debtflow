@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormLayoutComponent } from '../../components/layouts/form-layout/form-layout.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { CustomInputComponent } from '../../components/custom-input/custom-input.component';
 import { CustomButtonComponent } from '../../components/custom-button/custom-button.component';
 import {
@@ -10,6 +10,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { HttpClient } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+
+interface ILoginForm {
+  email: FormControl;
+  password: FormControl;
+}
 
 @Component({
   selector: 'app-login',
@@ -17,23 +25,48 @@ import {
   imports: [
     FormLayoutComponent,
     RouterLink,
+    RouterModule,
     CustomInputComponent,
     CustomButtonComponent,
     FormsModule,
     ReactiveFormsModule,
   ],
+  providers: [HttpClient],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {
-  loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
-  });
+export class LoginComponent implements OnInit {
+  loginForm!: FormGroup<ILoginForm>;
+
+  constructor(private authService: AuthService, private router: Router) {
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
+    });
+  }
+
+  ngOnInit(): void {
+    const stringAuthData = localStorage.getItem('@auth');
+
+    if(stringAuthData){
+      this.router.navigateByUrl('/dashboard', { replaceUrl: true});
+    }
+  }
 
   login() {
+    
     if (this.loginForm.valid) {
-      console.log('Login...');
+      const { email, password } = this.loginForm.value;
+      
+      this.authService.login(email, password).subscribe({
+        next: (response) => {
+          localStorage.setItem('@auth', JSON.stringify(response));
+          this.router.navigateByUrl('/dashboard', { replaceUrl: true});
+        },
+        error: ({ error }) => {
+          console.log(error.message);
+        },
+      });
     }
   }
 }
