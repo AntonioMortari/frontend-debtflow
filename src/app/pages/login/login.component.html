@@ -1,0 +1,32 @@
+<app-form-layout
+  title="Bem-vindo(a) novamente"
+  subtitle="Faça login para acessar seus lançamentos financeiros"
+>
+  <img
+    src="assets/logo.jpeg"
+    width="140px"
+    height="140px"
+    alt="Logo DebtFlow"
+  />
+
+  <form [formGroup]="loginForm">
+    <app-custom-input
+      label="E-mail"
+      placeholder="Digite seu email"
+      type="email"
+      name="email"
+      formControlName="email"
+    />
+    <app-custom-input
+      formControlName="password"
+      label="Senha"
+      placeholder="Digite sua senha"
+      type="password"
+      name="password"
+    />
+
+    <app-custom-button>Entrar</app-custom-button>
+
+    <p>Não tem uma conta? <a routerLink="/sign-up">Cadastre-se</a></p>
+  </form>
+</app-form-layout>

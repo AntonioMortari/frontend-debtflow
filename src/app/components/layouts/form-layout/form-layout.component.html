@@ -1,1 +1,19 @@
-<p>form-layout works!</p>
+<main class="container">
+  <section class="image-section">
+    <header>
+      <h2>{{ title }}</h2>
+      <h4>{{ subtitle }}</h4>
+    </header>
+
+    <img
+      src="assets/illustration$.png"
+      width="440px"
+      height="440px"
+      alt="Ilustração"
+    />
+  </section>
+
+  <section class="form-section">
+    <ng-content />
+  </section>
+</main>

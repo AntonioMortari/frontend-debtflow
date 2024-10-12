@@ -1,0 +1,40 @@
+@import "../../../../scss/variables";
+
+.container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.image-section{
+    width: 60%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: lighten($primary,50%);
+
+    h2{
+        text-align: center;
+        font-weight: normal;
+        font-size: xx-large;
+    }
+
+    h4{
+        text-align: center;
+        font-size: large;
+        color: #454545;
+        font-weight: normal;
+    }
+}
+
+.form-section{
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
