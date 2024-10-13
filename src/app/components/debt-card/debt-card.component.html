@@ -1,1 +1,33 @@
-<p>debt-card works!</p>
+<div class="container" [ngClass]="data.status === 'paid' ? 'paid' : 'toPay'">
+  <div class="container-description">
+    <p>{{ data.description }}</p>
+
+    <div class="container-status">
+      <span *ngIf="data.status === 'paid'" class="dot dot-paid"></span>
+      <span *ngIf="data.status === 'toPay'" class="dot dot-noPayed"></span>
+      {{ data.status === "paid" ? "Pago" : "Pendente" }}
+    </div>
+  </div>
+
+  <div class="container-price-button">
+    <div class="container-price">
+      <p class="price">
+        {{ data.price | currency : "BRL" : "symbol" : "1.2-2" }}
+      </p>
+      <p class="date">{{ data.date | date : "dd/MM" }}</p>
+    </div>
+
+    <span [matMenuTriggerFor]="menu">
+      <mat-icon
+        aria-hidden="false"
+        aria-label="Example home icon"
+        fontIcon="more_horiz"
+      ></mat-icon>
+    </span>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>Marcar como pago</button>
+      <button (click)="handleDeleteEntry()" mat-menu-item>Excluir</button>
+    </mat-menu>
+  </div>
+</div>

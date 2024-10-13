@@ -1,0 +1,63 @@
+@import "../../../scss/variables";
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 60px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.041);
+    border: 1px solid rgba(0, 0, 0, 0.111);
+}
+
+.paid{
+    background-color: #048F5510;
+}
+
+.toPay{
+    background-color: #A1283210;
+}
+
+.container-price-button{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.container-price{
+    text-align: center;
+
+    .price{
+        font-weight: 600;
+        font-size: large;
+    }
+
+    .date{
+        color: gray;
+        font-size: small;
+    }
+}
+
+.container-status{
+    display: flex;
+    align-items: center;
+    font-size: small;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.dot-paid {
+    background-color: $success;
+}
+
+.dot-noPayed {
+    background-color: $error;
+}

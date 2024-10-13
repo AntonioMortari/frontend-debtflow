@@ -2,19 +2,36 @@
 
 <section class="container">
   <div class="container-titles">
-    <h3>Lista de dívidas</h3>
-    <span>10 de outubro de 2024</span>
-
-    <mat-divider class="divider"></mat-divider>
+    <div>
+      <h3>Lista de dívidas</h3>
+      <span>{{ today | date : "dd/MM/yyyy" }}</span>
+    </div>
+    <app-custom-button>
+      <mat-icon
+        aria-hidden="false"
+        aria-label="Example home icon"
+        fontIcon="add_circle_outline"
+      ></mat-icon>
+      Adicionar
+    </app-custom-button>
   </div>
+  <mat-divider class="divider"></mat-divider>
 
   <div class="container-labels">
-    <p><strong>Total á pagar: </strong>R$400,00</p>
-    <p><strong>Total pago: </strong>R$400,00</p>
+    <p>
+      <strong>Total á pagar: </strong
+      >{{ totalPaid | currency : "BRL" : "symbol" : "1.2-2" }}
+    </p>
+    <p>
+      <strong>Total pago: </strong
+      >{{ totalNoPayed | currency : "BRL" : "symbol" : "1.2-2" }}
+    </p>
   </div>
 
   <!-- Cards -->
-   <div class="container-cards">
-
-   </div>
+  <div class="container-cards">
+    @for (entrie of entries; track $index) {
+    <app-debt-card [data]="entrie" (deleteEntry)="onDeleteEntry($event)" />
+    }
+  </div>
 </section>

@@ -5,10 +5,8 @@ import { RouterModule, RouterOutlet } from '@angular/router';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, RouterModule],
-  template: `
-    <router-outlet />
-  `
-})  
+  template: ` <router-outlet /> `,
+})
 export class AppComponent {
   title = 'frontend-debtflow';
 }
