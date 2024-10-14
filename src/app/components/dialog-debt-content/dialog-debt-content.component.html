@@ -1,7 +1,6 @@
 <h2 mat-dialog-title>{{prevEntryData ? 'Editar' : 'Adicionar'}} dívida</h2>
 <mat-dialog-content>
   <form class="container-form" [formGroup]="entryForm">
-    {{entryForm.value | json}}
 
     <app-custom-input
       label="Descrição"
