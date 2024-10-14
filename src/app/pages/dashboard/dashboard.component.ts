@@ -107,6 +107,19 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  public onEditEntry(entry: IEntry){
+      this.entriesService.updateById(entry).subscribe({
+        next: (response) => {
+          console.log('Dívida atualizada com sucesso!');
+          this.dialog.closeAll();
+          this.loadEntries();
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      })
+  }
+
   private calculateAll() {
     this.totalNoPayed = this.entries
       .filter((entry) => entry.status === 'paid')

@@ -29,7 +29,11 @@ export class DebtCardComponent {
     });
 
     dialogRef.componentInstance.outputEditEntry.subscribe((entry: any) => {
-      console.log(entry);
+      // captura o evento emitido pelo dialog e emite para o componente dashboard
+      this.outputEditEntry.emit({
+        ...entry,
+        _id: this.data._id // envia o id da dívida para editá-la
+      });
     })
   }
 

@@ -31,7 +31,7 @@
   <!-- Cards -->
   <div class="container-cards">
     @for (entrie of entries; track $index) {
-    <app-debt-card [data]="entrie" (outputDeleteEntry)="onDeleteEntry($event)" />
+    <app-debt-card [data]="entrie" (outputDeleteEntry)="onDeleteEntry($event)" (outputEditEntry)="onEditEntry($event)" />
     }@empty {
       <p class="empty-message">Nenhuma dívida criada</p>
     }

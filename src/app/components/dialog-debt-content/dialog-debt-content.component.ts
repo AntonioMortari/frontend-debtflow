@@ -54,6 +54,7 @@ export class DialogDebtContentComponent {
 
   constructor() {
     if (this.prevEntryData) {
+      // se o dialog foi aberto passando os dados da dívida
       this.entryForm = new FormGroup({
         description: new FormControl(this.prevEntryData.description || '', [
           Validators.required,
@@ -85,6 +86,7 @@ export class DialogDebtContentComponent {
       const { date, description, price, status } = this.entryForm.value;
 
       if(this.prevEntryData){
+        //se estiver editando, emite o evento para o componente debt-card
         this.outputEditEntry.emit({
           date,
           description,
@@ -95,6 +97,7 @@ export class DialogDebtContentComponent {
         return;
       }
       
+      // se estiver criando, emite o evento para o componente dashboard
       this.outputCreateEntry.emit({
         date,
         description,
