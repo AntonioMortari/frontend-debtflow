@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ICreateEntry } from '../@types/entry';
 
 @Injectable({
   providedIn: 'root',
@@ -19,5 +20,20 @@ export class EntriesService {
   public deleteById(id: string) {
     const url = this.baseUrl + `/entries/${id}`;
     return this.http.delete(url).pipe();
+  }
+
+  public create(entry: ICreateEntry, userId: string){
+    const url = this.baseUrl + '/entries';
+
+    console.log({
+      ...entry,
+      date: entry.date.toDateString(),
+      userId
+    })
+
+    return this.http.post(url, {
+      ...entry,
+      userId
+    })
   }
 }

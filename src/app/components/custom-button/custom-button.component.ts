@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
+type TButtonVariants = 'primary' | 'outline';
+
 @Component({
   selector: 'app-custom-button',
   standalone: true,
@@ -9,4 +11,5 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class CustomButtonComponent {
   @Input() disable: boolean = false;
+  @Input() variant: TButtonVariants = 'primary';
 }

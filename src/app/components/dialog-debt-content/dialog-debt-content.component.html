@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>{{prevEntryData ? 'Editar' : 'Adicionar'}} dívida</h2>
+<mat-dialog-content>
+  <form class="container-form" [formGroup]="entryForm">
+    {{entryForm.value | json}}
+
+    <app-custom-input
+      label="Descrição"
+      placeholder="Adicione uma descrição para sua dívida"
+      name="description"
+      formControlName="description"
+    />
+
+    <app-custom-input
+      label="Valor"
+      placeholder="Valor da dívida"
+      type="number"
+      name="price"
+      formControlName="price"
+    />
+
+    <app-custom-input
+      label="Data de vencimento"
+      type="date"
+      formControlName="date"
+      name="date"
+    />
+
+    <select
+      name="status"
+      id="status"
+      class="select-status"
+      formControlName="status"
+    >
+      <option value="paid">Pago</option>
+      <option value="toPay">Pendente</option>
+    </select>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <app-custom-button variant="outline" (click)="onNoClick()"
+    >Cancelar</app-custom-button
+  >
+  <app-custom-button (click)="onConfirm()" [disable]="!entryForm.valid">
+    Confirmar
+  </app-custom-button>
+</mat-dialog-actions>
+<form></form>

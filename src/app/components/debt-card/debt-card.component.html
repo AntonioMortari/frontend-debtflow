@@ -26,7 +26,7 @@
     </span>
 
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>Marcar como pago</button>
+      <button mat-menu-item (click)="openDialog()">Editar</button>
       <button (click)="handleDeleteEntry()" mat-menu-item>Excluir</button>
     </mat-menu>
   </div>

@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { HeaderComponent } from '../../components/header/header.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { EntriesService } from '../../services/entries.service';
 import { IAuthData } from '../../@types/auth';
-import { IEntry } from '../../@types/entry';
+import { ICreateEntry, IEntry } from '../../@types/entry';
 import { DebtCardComponent } from '../../components/debt-card/debt-card.component';
 import { CommonModule } from '@angular/common';
-import { CustomButtonComponent } from "../../components/custom-button/custom-button.component";
+import { CustomButtonComponent } from '../../components/custom-button/custom-button.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogDebtContentComponent } from '../../components/dialog-debt-content/dialog-debt-content.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,16 +24,17 @@ import { MatIconModule } from '@angular/material/icon';
     CommonModule,
     CustomButtonComponent,
     MatIconModule,
-],
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit {
-  authData!: IAuthData;
-  entries!: IEntry[];
-  totalPaid: number = 0;
-  totalNoPayed: number = 0;
-  today: Date = new Date();
+  authData!: IAuthData; // dados de autenticação
+  entries!: IEntry[]; // dívidas
+  totalPaid: number = 0; // total pago
+  totalNoPayed: number = 0; // total a pagar
+  today: Date = new Date(); // data atual
+  dialog = inject(MatDialog); // dialog
 
   constructor(
     private authService: AuthService,
@@ -45,7 +48,17 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
+  openDialog() {
+    const dialogRef = this.dialog.open(DialogDebtContentComponent);
+
+    dialogRef.componentInstance.outputCreateEntry.subscribe(
+      (entry: ICreateEntry) => {
+        this.onAddEntry(entry);
+      }
+    );
+  }
+
+  loadEntries(){
     this.entriesService.getByUserId(this.authData.userId).subscribe({
       next: (response) => {
         this.entries = response;
@@ -57,18 +70,36 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  ngOnInit(): void {
+      this.loadEntries();
+  }
+
   public logout() {
     this.authService.logout();
   }
 
-  public onAddEntry(){
-
+  public onAddEntry(entry: ICreateEntry) {
+    this.entriesService
+      .create(
+        { ...entry, price: Number(entry.price), date: new Date(entry.date) },
+        this.authData.userId
+      )
+      .subscribe({
+        next: () => {
+          this.loadEntries();
+          this.dialog.closeAll();
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
   }
 
   public onDeleteEntry(id: string) {
     this.entriesService.deleteById(id).subscribe({
       next: (_response) => {
         this.entries = this.entries.filter((entry) => entry._id !== id);
+        this.calculateAll();
       },
       error: (error) => {
         console.log('Erro ao deletar dívida: ', error);

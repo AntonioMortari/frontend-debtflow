@@ -1,40 +1,50 @@
-
-
-.container{
-    margin-top: 30px;
-    padding: 15px;
+.container {
+  margin-top: 30px;
+  padding: 15px;
 }
 
-.container-titles{
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.container-titles {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    h3{
-        font-weight:600;
-        font-size: x-large;
-    }
+  h3 {
+    font-weight: 600;
+    font-size: x-large;
+  }
 
-    span{
-        display: block;
-        color: #5b5b5b;
-        margin-bottom: 10px;
-    }
+  span {
+    display: block;
+    color: #5b5b5b;
+    margin-bottom: 10px;
+  }
 }
 
-.container-labels{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
+.container-labels {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-.container-cards{
-    margin-top: 20px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    
+.container-cards {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.empty-message{
+  text-align: center;
+  font-size: large;
+  margin-top: 10px;
+}
+
+@media only screen and (min-width: 768px) {
+  .container{
+    width: 80%;
+    margin: auto;
+  }
 }

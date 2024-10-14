@@ -1,7 +1,7 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-type InputTypes = 'text' | 'email' | 'password';
+type InputTypes = 'text' | 'email' | 'password' | 'number' | 'date';
 
 @Component({
   selector: 'app-custom-input',

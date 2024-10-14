@@ -6,7 +6,7 @@
       <h3>Lista de dívidas</h3>
       <span>{{ today | date : "dd/MM/yyyy" }}</span>
     </div>
-    <app-custom-button>
+    <app-custom-button (click)="openDialog()">
       <mat-icon
         aria-hidden="false"
         aria-label="Example home icon"
@@ -31,7 +31,9 @@
   <!-- Cards -->
   <div class="container-cards">
     @for (entrie of entries; track $index) {
-    <app-debt-card [data]="entrie" (deleteEntry)="onDeleteEntry($event)" />
+    <app-debt-card [data]="entrie" (outputDeleteEntry)="onDeleteEntry($event)" />
+    }@empty {
+      <p class="empty-message">Nenhuma dívida criada</p>
     }
   </div>
 </section>
