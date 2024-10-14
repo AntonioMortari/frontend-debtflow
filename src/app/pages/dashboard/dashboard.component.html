@@ -28,12 +28,27 @@
     </p>
   </div>
 
+  <select
+    name="status"
+    id="status"
+    class="select-status"
+    (change)="filterEntries($event)"
+  >
+    <option value="all">Todos</option>
+    <option value="paid">Pago</option>
+    <option value="toPay">Pendente</option>
+  </select>
+
   <!-- Cards -->
   <div class="container-cards">
     @for (entrie of entries; track $index) {
-    <app-debt-card [data]="entrie" (outputDeleteEntry)="onDeleteEntry($event)" (outputEditEntry)="onEditEntry($event)" />
+    <app-debt-card
+      [data]="entrie"
+      (outputDeleteEntry)="onDeleteEntry($event)"
+      (outputEditEntry)="onEditEntry($event)"
+    />
     }@empty {
-      <p class="empty-message">Nenhuma dívida criada</p>
+    <p class="empty-message">Nenhuma dívida criada</p>
     }
   </div>
 </section>

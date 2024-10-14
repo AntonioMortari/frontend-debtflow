@@ -11,9 +11,11 @@ export class EntriesService {
 
   constructor(private http: HttpClient) {}
 
-  public getByUserId(userId: string): Observable<any> {
-    const url = this.baseUrl + `/entries/user/${userId}`;
-
+  public getByUserId(userId: string, status?: string): Observable<any> {
+    const url = status !== undefined 
+      ? `${this.baseUrl}/entries/user/${userId}?status=${status}` 
+      : `${this.baseUrl}/entries/user/${userId}`;
+  
     return this.http.get(url).pipe();
   }
 

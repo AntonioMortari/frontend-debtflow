@@ -58,8 +58,9 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  loadEntries(){
-    this.entriesService.getByUserId(this.authData.userId).subscribe({
+  loadEntries(status?: 'paid' | 'toPay') {
+    console.log(status)
+    this.entriesService.getByUserId(this.authData.userId, status).subscribe({
       next: (response) => {
         this.entries = response;
         this.calculateAll();
@@ -71,11 +72,17 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.loadEntries();
+    this.loadEntries();
   }
 
   public logout() {
     this.authService.logout();
+  }
+
+  public filterEntries(event: any) {
+    const { value } = event.target;
+
+    this.loadEntries(value === 'paid' || value === 'toPay' ? value : '');
   }
 
   public onAddEntry(entry: ICreateEntry) {
@@ -107,17 +114,17 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  public onEditEntry(entry: IEntry){
-      this.entriesService.updateById(entry).subscribe({
-        next: (response) => {
-          console.log('Dívida atualizada com sucesso!');
-          this.dialog.closeAll();
-          this.loadEntries();
-        },
-        error: (error) => {
-          console.log(error);
-        }
-      })
+  public onEditEntry(entry: IEntry) {
+    this.entriesService.updateById(entry).subscribe({
+      next: (response) => {
+        console.log('Dívida atualizada com sucesso!');
+        this.dialog.closeAll();
+        this.loadEntries();
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 
   private calculateAll() {
