@@ -11,6 +11,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 interface ISignUpForm {
   email: FormControl;
@@ -36,7 +37,7 @@ interface ISignUpForm {
 export class SignUpComponent implements OnInit {
   signUpForm!: FormGroup<ISignUpForm>;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private toastr: ToastrService) {
     this.signUpForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
@@ -63,8 +64,9 @@ export class SignUpComponent implements OnInit {
           localStorage.setItem('@auth', JSON.stringify(response));
           this.router.navigateByUrl('/dashboard', { replaceUrl: true });
         },
-        error: (error) => {
+        error: ({error}) => {
           console.log(error);
+          this.toastr.error(error.message, 'Erro');
         },
       });
     }

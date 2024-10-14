@@ -13,6 +13,7 @@ import {
 import { AuthService } from '../../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { ToastrService } from 'ngx-toastr';
 
 interface ILoginForm {
   email: FormControl;
@@ -38,7 +39,11 @@ interface ILoginForm {
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup<ILoginForm>;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
@@ -48,23 +53,23 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     const stringAuthData = localStorage.getItem('@auth');
 
-    if(stringAuthData){
-      this.router.navigateByUrl('/dashboard', { replaceUrl: true});
+    if (stringAuthData) {
+      this.router.navigateByUrl('/dashboard', { replaceUrl: true });
     }
   }
 
   login() {
-    
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
-      
+
       this.authService.login(email, password).subscribe({
         next: (response) => {
           localStorage.setItem('@auth', JSON.stringify(response));
-          this.router.navigateByUrl('/dashboard', { replaceUrl: true});
+          this.router.navigateByUrl('/dashboard', { replaceUrl: true });
         },
         error: ({ error }) => {
           console.log(error.message);
+          this.toastr.error(error.message, 'Erro');
         },
       });
     }
