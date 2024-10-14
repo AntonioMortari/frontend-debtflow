@@ -1,27 +1,47 @@
-# FrontendDebtflow
+# DebtFlow
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.7.
+Projeto Estágio: Utilizando somente Angular 17 no frontend, os estagiários devem criar um sistema de controle financeiro simples, em que o usuário fará login e poderá ver uma lista com seus lançamentos de caixa
 
-## Development server
+## Tecnologias Usadas
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Angular
+- TypeScript
+- HTML/CSS
+- Material UI
 
-## Code scaffolding
+## Pré-requisitos
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Antes de começar, você precisará ter instalado:
 
-## Build
+- [Node.js](https://nodejs.org/) (versão LTS recomendada)
+- [Angular CLI](https://angular.io/cli) (instale com `npm install -g @angular/cli`)
+- Acesso ao [backend](https://github.com/AntonioMortari/backend-debtflow)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Instalação
 
-## Running unit tests
+1. Clone o repositório:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+   ```bash
+   https://github.com/AntonioMortari/frontend-debtflow.git
+   
+2. instale as dependências:
 
-## Running end-to-end tests
+   ```bash
+   npm install
+   
+3. Inicie o projeto:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+   ```bash
+   ng s
 
-## Further help
+## Imagens
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+<div style="text-align: center;">
+  <img src="https://github.com/user-attachments/assets/bdd73d53-66a4-4587-a6aa-f3f82d51fdb4" alt="Tela de login" style="max-width: 100%; height: auto;" />
+</div>
+<div style="text-align: center;">
+  <img src="https://github.com/user-attachments/assets/61cc8fc5-a5df-4b5a-8aea-9dfc67a2ea01" alt="Tela de Home" style="max-width: 100%; height: auto;" />
+</div>
+<div style="text-align: center;">
+  <img src="https://github.com/user-attachments/assets/b76fe075-f7ee-4634-91f0-8b595aa67b27" alt="Tela de Home mobile" style="max-width: 100%; height: auto;" />
+</div>
