@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormLayoutComponent } from '../../components/layouts/form-layout/form-layout.component';
 import { CustomInputComponent } from '../../components/custom-input/custom-input.component';
 import { CustomButtonComponent } from '../../components/custom-button/custom-button.component';
@@ -12,6 +12,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs';
 
 interface ISignUpForm {
   email: FormControl;
@@ -37,6 +38,8 @@ interface ISignUpForm {
 export class SignUpComponent implements OnInit {
   signUpForm!: FormGroup<ISignUpForm>;
 
+  loading = signal<boolean>(false);
+
   constructor(private authService: AuthService, private router: Router, private toastr: ToastrService) {
     this.signUpForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -58,8 +61,13 @@ export class SignUpComponent implements OnInit {
 
   signUp() {
     if (this.signUpForm.valid) {
+      this.loading.update(() => true);
       const { email, password } = this.signUpForm.value;
-      this.authService.signUp(email, password).subscribe({
+      this.authService.signUp(email, password).pipe(
+        finalize(() => {
+          this.loading.update(() => false);
+        })
+      ).subscribe({
         next: (response) => {
           localStorage.setItem('@auth', JSON.stringify(response));
           this.router.navigateByUrl('/dashboard', { replaceUrl: true });

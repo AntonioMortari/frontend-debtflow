@@ -33,7 +33,7 @@
 
     <div class="container-button">
       <app-custom-button [disable]="!loginForm.valid" (click)="login()"
-      >Entrar</app-custom-button
+      >{{loading() ? 'Carregando...' : 'Entrar'}}</app-custom-button
     >
 
     <p class="text-redirect-signUp">Não tem uma conta? <a routerLink="/sign-up">Cadastre-se</a></p>

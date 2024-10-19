@@ -51,7 +51,7 @@
 
     <div class="container-button">
       <app-custom-button [disable]="!signUpForm.valid" (click)="signUp()"
-      >Cadastrar</app-custom-button
+      >{{loading() ? 'Carregando...' : 'Cadastrar'}}</app-custom-button
     >
 
     <p class="text-redirect-signUp">Já tem uma conta? <a routerLink="/">Faça Login!</a></p>

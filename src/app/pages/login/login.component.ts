@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormLayoutComponent } from '../../components/layouts/form-layout/form-layout.component';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { CustomInputComponent } from '../../components/custom-input/custom-input.component';
@@ -14,6 +14,7 @@ import { AuthService } from '../../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs';
 
 interface ILoginForm {
   email: FormControl;
@@ -39,6 +40,8 @@ interface ILoginForm {
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup<ILoginForm>;
 
+  loading = signal<boolean>(false);
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -60,9 +63,14 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.loginForm.valid) {
+      this.loading.update(() => true);
       const { email, password } = this.loginForm.value;
 
-      this.authService.login(email, password).subscribe({
+      this.authService.login(email, password).pipe(
+        finalize(() => {
+          this.loading.update(() => false);
+        })
+      ).subscribe({
         next: (response) => {
           localStorage.setItem('@auth', JSON.stringify(response));
           this.router.navigateByUrl('/dashboard', { replaceUrl: true });
